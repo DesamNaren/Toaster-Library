@@ -1,15 +1,24 @@
 package com.example.customlib;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ToasterMessage {
+
+    private Context context;
+    public ToasterMessage(Context  context){
+        this.context = context;
+    }
 
     //Use context
     public static void showToast(Context c, String message) {
@@ -73,5 +82,22 @@ public class ToasterMessage {
                     }
                 }).show();
     }
+
+
+    public static boolean checkPermission(Context context, String permission) {
+        // TODO Auto-generated method stub
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
+                Log.i("LOG_PER", "checkPermission: "+"YES");
+                return true;
+            }
+        } else {
+            Log.i("LOG_PER", "checkPermission: "+"YES");
+            return true;
+        }
+        Log.i("LOG_PER", "checkPermission: "+"NO");
+        return false;
+    }
+
 
 }
